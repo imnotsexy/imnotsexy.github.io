@@ -1,41 +1,554 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<title>あなたのＨＰタイトル</title>
-<meta name="keywords" content="ページのキーワードA,B,C">
-<meta name="description" content="ページの説明">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>JEONG UIHEON | University Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="東京理科大学 JEONG UIHEON の大学ポートフォリオサイト。AI・データサイエンス・通信工学・OSなどの学習・プロジェクトを掲載。">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --shadow: 0 18px 40px rgba(15,23,42,0.45);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 48%, #000 100%);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 24px 16px 60px;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(15,23,42,0.7);
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 8px rgba(74,222,128,0.8);
+    }
+
+    .hero {
+      margin-top: 16px;
+      padding: 24px 22px 26px;
+      border-radius: var(--radius);
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 58%),
+                  radial-gradient(circle at bottom right, rgba(129,140,248,0.18), transparent 55%),
+                  rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
+      gap: 18px;
+    }
+
+    .hero-main h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
+    .hero-main h2 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .hero-main p {
+      font-size: 13px;
+      color: #e5e7eb;
+      max-width: 520px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 2px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(15,23,42,0.7);
+    }
+
+    .hero-side {
+      border-radius: 16px;
+      padding: 12px 12px 10px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .hero-side-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+    }
+
+    .hero-side-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      color: #6b7280;
+    }
+
+    .hero-side-value {
+      font-size: 12px;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .hero-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn-outline, .btn-solid {
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 11px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text);
+      background: transparent;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
+    }
+
+    .btn-solid {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      border-color: transparent;
+      color: #0b1120;
+      font-weight: 600;
+    }
+
+    .btn-outline:hover {
+      background: rgba(15,23,42,0.9);
+      transform: translateY(-1px);
+    }
+
+    .btn-solid:hover {
+      background: linear-gradient(135deg, #7dd3fc, #818cf8);
+      transform: translateY(-1px);
+    }
+
+    main {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.1fr);
+      gap: 18px;
+    }
+
+    section {
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, rgba(148,163,184,0.15), transparent 52%),
+                  radial-gradient(circle at bottom right, rgba(15,23,42,0.9), #020617);
+      padding: 14px 14px 12px;
+      box-shadow: 0 18px 40px rgba(15,23,42,0.7);
+    }
+
+    .card-compact {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.4), transparent 55%),
+                  rgba(15,23,42,0.96);
+      padding: 11px 12px 10px;
+      box-shadow: 0 14px 30px rgba(15,23,42,0.7);
+    }
+
+    .proj-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .proj-item {
+      padding: 8px 9px;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .proj-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .proj-name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .proj-meta {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .proj-desc {
+      margin-top: 4px;
+      font-size: 12px;
+      color: #d1d5db;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+    }
+
+    .pill {
+      padding: 1px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 10px;
+      color: var(--muted);
+      background: rgba(15,23,42,0.8);
+    }
+
+    .list-simple {
+      list-style: none;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+
+    .list-simple li + li {
+      margin-top: 4px;
+    }
+
+    .list-simple span {
+      color: var(--muted);
+      font-size: 11px;
+      margin-left: 4px;
+    }
+
+    .highlight {
+      background: var(--accent-soft);
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 10px;
+      color: var(--accent);
+      border: 1px solid rgba(56,189,248,0.6);
+    }
+
+    footer {
+      margin-top: 26px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-top: 1px solid rgba(31,41,55,0.9);
+      padding-top: 10px;
+    }
+
+    @media (max-width: 780px) {
+      body {
+        padding: 18px 12px 40px;
+      }
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-main h1 {
+        font-size: 22px;
+      }
+      .hero {
+        padding: 20px 16px 18px;
+      }
+      .card, .card-compact {
+        padding: 11px 10px 9px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div id="outer">
-<header>
-<div class="header-inner">
-<h1>あなたのＨＰタイトル</h1>
-<p>あなたのＨＰの説明文</p>
-</div>
-</header>
-<div id="content">
-<div class="inner">
-<h2>記事ページ見出し・大</h2>
-<p>文章あれこれ</p>
-<h3>記事ページ見出し・中</h3>
-<p>文章あれこれ</p>
-<h4>記事ページ見出し・小</h4>
-<p>文章あれこれ</p>
-</div>
-<aside>
-<div class="left-title">サイドバータイトル</div>
-<div class="link">
-<ul>
-<li>記事ページへのリンク</li>
-<li>記事ページへのリンク</li>
-</ul>
-</div>
-</aside>
-</div>
-<footer>© 2010 あなたのホームページ</footer>
-</div>
+  <div class="page">
+    <header>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        UNIVERSITY PORTFOLIO · TOKYO UNIVERSITY OF SCIENCE
+      </div>
+
+      <div class="hero">
+        <div class="hero-main">
+          <h1>JEONG UIHEON</h1>
+          <h2>Tokyo University of Science · Department of Information Engineering</h2>
+          <p>
+            大学での学習・プロジェクトを整理したポートフォリオサイトです。  
+            機械学習・通信工学・数値解析・OS などの基礎を通じて、
+            「データとアルゴリズムで価値をつくるエンジニア／ビジネスパーソン」を目指しています。
+          </p>
+          <div class="hero-tags">
+            <span class="tag">Machine Learning</span>
+            <span class="tag">Neural Networks</span>
+            <span class="tag">Digital Communications</span>
+            <span class="tag">Operating Systems</span>
+            <span class="tag">Data Science</span>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="hero-side-row">
+            <div>
+              <div class="hero-side-label">Name</div>
+              <div class="hero-side-value">JEONG UIHEON</div>
+            </div>
+            <div>
+              <div class="hero-side-label">Affiliation</div>
+              <div class="hero-side-value">Tokyo Univ. of Science<br>Information Engineering</div>
+            </div>
+          </div>
+          <div class="hero-side-row">
+            <div>
+              <div class="hero-side-label">Focus</div>
+              <div class="hero-side-value">AI / ML · Digital Comm. · Systems</div>
+            </div>
+            <div>
+              <div class="hero-side-label">Location</div>
+              <div class="hero-side-value">Tokyo, Japan</div>
+            </div>
+          </div>
+          <div class="hero-links">
+            <a class="btn-outline" href="mailto:shsblog.adm@gmail.com">Contact</a>
+            <a class="btn-solid" href="https://github.com/imnotsexy" target="_blank" rel="noopener noreferrer">
+              GitHub Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div>
+        <section>
+          <h3 class="section-title">PROJECTS</h3>
+          <div class="card">
+            <div class="proj-list">
+              <div class="proj-item">
+                <div class="proj-head">
+                  <div class="proj-name">Hopfield Network を用いた巡回セールスマン問題 (TSP)</div>
+                  <div class="proj-meta">Python / Neural Networks</div>
+                </div>
+                <p class="proj-desc">
+                  相互結合型ニューラルネットワーク (HNN) を用いて、TSP の近似解探索を行ったプロジェクト。
+                  エネルギー関数が単調減少するように設計し、巡回路の収束挙動をシミュレーションと可視化で確認。
+                </p>
+                <div class="pill-row">
+                  <span class="pill">Hopfield Network</span>
+                  <span class="pill">Optimization</span>
+                  <span class="pill">TSP</span>
+                  <span class="pill">Matplotlib</span>
+                </div>
+              </div>
+
+              <div class="proj-item">
+                <div class="proj-head">
+                  <div class="proj-name">BSC 誤り率シミュレーションと乱数生成器の比較</div>
+                  <div class="proj-meta">C / C++ · Digital Communications</div>
+                </div>
+                <p class="proj-desc">
+                  Binary Symmetric Channel におけるビット誤り率を、理論値とシミュレーション値で比較。
+                  C 標準の rand() と Mersenne Twister を用いた場合の違いを、試行回数や誤り確率を変えながら評価。
+                </p>
+                <div class="pill-row">
+                  <span class="pill">BSC</span>
+                  <span class="pill">Mersenne Twister</span>
+                  <span class="pill">Simulation</span>
+                  <span class="pill">Bit Error Rate</span>
+                </div>
+              </div>
+
+              <div class="proj-item">
+                <div class="proj-head">
+                  <div class="proj-name">Hamming (7,4) 符号による単一誤り訂正</div>
+                  <div class="proj-meta">Python · Error Correcting Codes</div>
+                </div>
+                <p class="proj-desc">
+                  (7,4) ハミング符号の符号化・復号化・誤り検出を実装。
+                  単一ビット誤りを訂正できる仕組みを、シンドローム計算とパリティ検査行列を通じて検証。
+                </p>
+                <div class="pill-row">
+                  <span class="pill">Hamming Code</span>
+                  <span class="pill">Error Correction</span>
+                  <span class="pill">Python</span>
+                </div>
+              </div>
+
+              <div class="proj-item">
+                <div class="proj-head">
+                  <div class="proj-name">数値解析：移流方程式の差分法シミュレーション</div>
+                  <div class="proj-meta">Python · Numerical Analysis</div>
+                </div>
+                <p class="proj-desc">
+                  1 次精度風上差分法・Lax 法・Lax-Wendroff 法などを実装し、時間刻みや空間刻みを変えながら数値安定性と
+                  近似精度を比較。スキームごとの発散・数値粘性の性質をレポートに整理。
+                </p>
+                <div class="pill-row">
+                  <span class="pill">PDE</span>
+                  <span class="pill">Upwind Scheme</span>
+                  <span class="pill">Lax-Wendroff</span>
+                  <span class="pill">Visualization</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="section-title">COURSEWORK & REPORTS</h3>
+          <div class="card-compact">
+            <ul class="list-simple">
+              <li>
+                生体情報工学
+                <span>Hodgkin-Huxley モデルの数値解析とスパイク発火の再現</span>
+              </li>
+              <li>
+                デジタル通信工学
+                <span>BSC・誤り率・乱数生成器の比較実験</span>
+              </li>
+              <li>
+                モデリング理論
+                <span>移流方程式の差分スキーム比較と安定性評価</span>
+              </li>
+              <li>
+                ニューラルネットワーク理論
+                <span>形式ニューロン・XORと線形分離・相互結合型NN</span>
+              </li>
+              <li>
+                オペレーティングシステム
+                <span>スケジューリング・メモリ管理などの基礎演習</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <section>
+          <h3 class="section-title">SKILLS</h3>
+          <div class="card-compact">
+            <ul class="list-simple">
+              <li>Languages<span>Python, C, C++, LaTeX</span></li>
+              <li>Topics<span>Machine Learning, Digital Communications, Numerical Analysis</span></li>
+              <li>Tools<span>Git / GitHub, Jupyter, VS Code</span></li>
+              <li>Interest<span class="highlight">AI × Business / Data-driven Service Design</span></li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="section-title">ABOUT</h3>
+          <div class="card-compact">
+            <p style="font-size: 12px; color:#e5e7eb; margin-bottom:6px;">
+              東京理科大学 工学部情報工学科に在籍しながら、学内の学習だけでなく
+              SNS 運用やマーケティング、起業的な活動にも取り組んでいます。
+            </p>
+            <p style="font-size: 12px; color:#e5e7eb;">
+              技術としての AI / データサイエンスを学ぶだけでなく、
+              「実際のサービスやビジネスにどう落とし込むか」を意識して
+              プロジェクトや学習内容を選んでいます。
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h3 class="section-title">CONTACT</h3>
+          <div class="card-compact">
+            <p style="font-size: 12px; color:#e5e7eb; margin-bottom:6px;">
+              コード・レポート・プロジェクトの詳細が必要な場合は、以下からご連絡ください。
+            </p>
+            <ul class="list-simple">
+              <li>Email<span><a href="mailto:shsblog.adm@gmail.com" style="color:var(--accent); text-decoration:none;">shsblog.adm@gmail.com</a></span></li>
+              <li>GitHub<span><a href="https://github.com/imnotsexy" target="_blank" rel="noopener noreferrer" style="color:var(--accent); text-decoration:none;">github.com/imnotsexy</a></span></li>
+            </ul>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div>© <span id="year">2025</span> JEONG UIHEON</div>
+      <div>Hosted on GitHub Pages · Repository: <code>imnotsexy/tus</code></div>
+    </footer>
+  </div>
+
+  <script>
+    // 年だけ自動更新（中身は静的サイトのまま）
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
